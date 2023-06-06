@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div id="main">
+        <div id="left">
+          <div id="sideline">
+            <div id="top-part">
+              <div id="image"></div>
+              <i class="ri-search-line"></i>
+              <i class="ri-git-branch-line"></i>
+              <i class="ri-bug-line"></i>
+              <i class="ri-layout-2-fill"></i>
+              <i class="ri-github-fill"></i>
+            </div>
+                 
+                  <div id="btm-part">
+                    <i class="ri-account-circle-line"></i>
+                    <i class="ri-settings-5-line"></i>
+                    <i class="ri-sound-module-line"></i>
+                  </div>
+          </div>
+          <div id="lnav">
+            <h4>Explorer</h4>
+            <i class="ri-more-line"></i>
+          </div>
+          <div id="file-part">
+            <div id="fpnav">
+              
+              <h4> <i class="ri-arrow-down-s-line"></i> Folder</h4>
+             <div id="icon">
+              <i id="fileicon" class="ri-file-3-line"></i>
+              <i id="foldericon" class="ri-folder-2-line"></i>
+             <a href=""><i class="ri-restart-line"></i></a> 
+             </div>
+           
+            </div>
+
+
+
+            <div  class="forms">
+              <form id="file" action="/filename">
+      
+                <input type="text" placeholder="enter filename" name="file">
+              </form>
+               <form id="folder" action="/foldername">
+                <input type="text" placeholder="enter foldername" name="folder">
+              </form>
+            </div>
+
+
+            <div id="files">
+                <% files.forEach(function(file){ %>
+                       <% if( file.isFolder ===true) {%>
+  
+                                <div class="file">
+                                  <h4><i class="ri-folder-line"></i><%= file.name %></h4>
+                                  <div class="icons">
+                                    <i class="ri-pencil-fill"></i>
+                                    <a href="/deletefile/<%=file.name %>"> <i class="ri-delete-bin-5-line"></i></a>
+
+                                  </div>
+                                </div>
+                <% }else{ %>
+                                <div class="file">
+                                  <a href="/file/<%= file.name %>"> <h4><i class="ri-file-line"></i><%= file.name %></h4> </a> 
+                                  <div class="icons">
+                                    <a href=""><i class="ri-pencil-fill"></i></a>
+                                    <a href="/deletefile/<%=file.name %>"> <i class="ri-delete-bin-5-line"></i></a>
+
+                                  </div>
+                                </div>
+                   <% } %>
+                   <% }) %>
+                 
+            </div>
+
+           
+          </div>
+        </div>
+        <div id="right">
+            <div id="rnav">
+                <%= filename %>
+                        <a href="/"><i class="ri-close-line"></i></a>
+                       
+              </div>
+              <div id="rnav2">
+                <h4> Folder </h4>
+                <i class="ri-arrow-right-s-line"></i>
+                <%= filename %>
+
+              </div>
+              <textarea >
+                <%= filedata %>
+              </textarea>
+              
+        </div>
+  </div>
+
+<script>
+
+
+function onOff(){
+  document.querySelectorAll("form").forEach(function(p) {
+      p.style.display="none"
+      
+    });
+   
+  
+}
+document.querySelector("#fileicon").addEventListener("click",function(){
+      onOff();
+    document.querySelector("#file").style.display="initial"
+  })
+  document.querySelector("#foldericon").addEventListener("click",function(){
+    onOff();
+    document.querySelector("#folder").style.display="initial"
+  })
+  
+  window.addEventListener("keydown",function(p){
+  if(p.keyCode===27){
+    onOff();
+    
+    document.querySelectorAll("form input").forEach(function(elem){
+    elem.value ="";
+  })
+  }
+  
+  
+})
+// document.querySelectorAll(".file ").addEventListener("mouseover",function(){
+//   document.querySelector(".icons").style.display="initial"
+
+// })
+// document.querySelectorforAll(".file ").addEventListener("mouseleave",function(){
+//   document.querySelector(".icons").style.display="none"
+
+// })
+</script>
+    
+</body>
+</html>
