@@ -3,6 +3,12 @@ var router = express.Router();
 var fs = require("fs")
 /* GET home page. */
 
+const path = './uploads';
+
+if (!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+}
+
 
 
 
@@ -10,7 +16,10 @@ router.get('/', function(req, res, next) {
   var filesdup=[ ];
 
 fs.readdir("./uploads",{withFileTypes:true},function(err,files){
-
+  if (err) {
+    console.error("Error reading directory:", err);
+    return res.status(500).send("Error reading directory");
+}
    files.forEach(function(dirent){
 
      filesdup.push({name:dirent.name,isFolder:dirent.isDirectory()})
